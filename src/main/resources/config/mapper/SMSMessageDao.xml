@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubotech.business.web.dao.SMSMessageDao">
+    <resultMap type="com.jubotech.business.web.domain.SMSMessage" id="BaseResultMap">
+        <id column="id" property="id"/>
+        <result  column="cid" property="cid"/>
+        <result  column="number" property="number"/>
+        <result  column="type" property="type"/>
+        <result  column="date" property="date"/>
+        <result  column="content" property="content"/>
+        <result  column="reads" property="reads"/>
+        <result  column="simid" property="simid"/>
+        <result  column="wechatid" property="wechatid"/>
+        <result  column="imei" property="imei"/>
+        <result  column="blocktype" property="blocktype"/>
+        <result  column="create_time" property="createTime"/>
+    </resultMap>
+      
+</mapper>

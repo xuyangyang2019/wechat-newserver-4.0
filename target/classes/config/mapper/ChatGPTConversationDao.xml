@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubotech.business.web.dao.ChatGPTConversationDao">
+     
+    <resultMap type="com.jubotech.business.web.domain.ChatGPTConversation" id="BaseResultMap">
+        <id column="id" property="id"/>
+        <result  column="wechatid" property="wechatid"/>
+        <result  column="friendid" property="friendid"/>
+        <result  column="conversation" property="conversation"/>
+        <result  column="create_time" property="createTime"/>
+    </resultMap>
+	 
+</mapper>

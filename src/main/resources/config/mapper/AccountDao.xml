@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubotech.business.web.dao.AccountDao">
+    <resultMap type="com.jubotech.business.web.domain.AccountInfo" id="resultMap">
+        <id column="id" property="id"/>
+        <result  column="account" property="account"/>
+        <result  column="password" property="password"/>
+        <result  column="nickname" property="nickname"/>
+        <result  column="type" property="type"/>
+        <result  column="cid" property="cid"/>
+        <result  column="level" property="level"/>
+        <result  column="state" property="state"/>
+        <result  column="create_time" property="createTime"/>
+    </resultMap>
+    
+   <select id="pageList" resultMap="resultMap">
+         select t1.*  
+         from tbl_accountinfo  t1
+         where  1=1
+         <if test="account != null and account != '' ">
+           and t1.account LIKE CONCAT('%',#{account},'%')
+         </if>
+         <if test="type != null and type != '' ">
+           and t1.type =#{type}
+         </if>
+         <if test="cid != null and cid != '' ">
+           and t1.cid =#{cid}
+         </if>
+         
+          order by t1.id desc  
+	</select>
+     
+    <select id="getAllAccountInfoByCid" resultMap="resultMap">
+         select * 
+         from tbl_accountinfo
+         where   type = 1
+         <if test="cid != null ">
+           and cid =#{cid}
+         </if>
+	</select>
+	  
+	  
+	<select id="findAccountInfoByid" resultType="com.jubotech.business.web.domain.AccountInfo">
+         select  * 
+         from tbl_accountinfo
+         where  id = #{id}
+	</select>
+	
+	<select id="findAccountInfoByWeChatId" resultType="com.jubotech.business.web.domain.AccountInfo">
+         select  t1.* from tbl_accountinfo t1,tbl_wx_accountinfo t2
+         where  t1.id = t2.accountid  and t2.wechatid = #{wechatId} limit 1
+	</select>
+	 
+	 
+	 <select id="findAccountInfoByAccount" resultType="com.jubotech.business.web.domain.AccountInfo">
+         select  * 
+         from tbl_accountinfo
+         where  account = #{account}
+	</select>
+ 
+	  
+	<update id="update">
+	  update  tbl_accountinfo
+      set 
+      account = #{account},
+      password = #{password},
+      nickname = #{nickname},
+      level = #{level},
+      state = #{state}
+	  where 
+	  id = #{id} 
+	</update>
+	 
+	<select id="findAccountInfo" resultType="com.jubotech.business.web.domain.AccountInfo">
+         select  * 
+         from tbl_accountinfo
+         where type = #{type} and  account=#{account}
+         and password=#{password}
+	</select>
+	
+	<select id="findAccountInfoByAccountPwd" resultType="com.jubotech.business.web.domain.AccountInfo">
+         select  * 
+         from tbl_accountinfo
+         where type !=1  and  account=#{account}
+         and password=#{password}
+	</select>
+	 
+	<update id="pwdedit">
+	  update  tbl_accountinfo
+      set
+      password = #{password}
+	  where 
+	  id = #{id} 
+	</update>
+	 
+</mapper>

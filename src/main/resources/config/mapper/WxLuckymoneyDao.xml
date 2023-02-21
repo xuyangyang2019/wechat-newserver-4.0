@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jubotech.business.web.dao.WxLuckymoneyDao">
+    <resultMap type="com.jubotech.business.web.domain.WxLuckymoney" id="resultMap">
+        <id column="id" property="id"/>
+        <result  column="cid" property="cid"/>
+        <result  column="wechatid" property="wechatid"/>
+        <result  column="friendid" property="friendid"/>
+        <result  column="friendname" property="friendname"/>
+        <result  column="msgid" property="msgid"/>
+        <result  column="amount" property="amount"/>
+        <result  column="content" property="content"/>
+        <result  column="type" property="type"/>
+        <result  column="create_time" property="createTime"/>
+    </resultMap>
+        
+	<select id="queryTongji" resultType="com.jubotech.business.web.domain.vo.LuckyMoneyTongji">
+        select wechatid,cast(create_time as date) as day , SUM(amount) as  amount from tbl_wx_luckymoney  
+		where  1 = 1 
+		<if test="cid != null">
+           and cid = #{cid}
+        </if>
+        <if test="type != null">      
+           and type = #{type}
+        </if>  
+		and create_time &gt;#{start}
+		and create_time &lt;#{end}
+		GROUP BY   day,wechatid
+	</select> 
+	
+	
+	<select id="queryLuckyMoneyDetail" resultType="com.jubotech.business.web.domain.vo.LuckyMoneyDetail">
+        select wechatid,friendid,friendname,type,cast(create_time as date) as day , SUM(amount) as  amount from tbl_wx_luckymoney  
+		where  1 = 1 
+		<if test="cid != null">
+           and cid = #{cid}
+        </if>
+        <if test="type != null">      
+           and type = #{type}
+        </if> 
+		<if test="wechatid != null and wechatid !='' ">
+           and wechatid = #{wechatid}
+        </if>
+		and create_time &gt;#{start}
+		and create_time &lt;#{end}
+		GROUP BY   day,friendid,type
+	</select> 
+	
+	 
+</mapper>
